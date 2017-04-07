@@ -4,17 +4,20 @@ import { Messages, UserList, MessageForm } from './Components'
 
 class Room extends Component {
 
+ 
   render() {
     return (
       <div>
-        <RoomBody/>
+        <RoomBody isLoggedIn={this.props.isLoggedIn}/>
       </div>
     );
   }
+
+
 }
 
 function RoomBody(props) {
-  if (props.loggedIn) {
+  if (props.isLoggedIn) {
         return (<div>
                 <div style={{display: "flex", flexFlow: "row nowrap"}}>
                   <Messages/>

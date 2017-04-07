@@ -9,13 +9,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.join = this.join.bind(this)
-    this.state = {name: null, isLoggedIn: false} 
+    this.state = {}
   }
   
-  join() {
+  join(name) {
     this.setState(prevState => {
       console.log("Button");
-      return {name: "Bill", isLoggedIn: true} 
+      return {name: name, isLoggedIn: true} 
     })
   }
 
@@ -26,13 +26,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2><LoginBanner join={this.join} isLoggedIn={this.state.isLoggedIn} name={this.state.name}/></h2>
         </div>
-        <Room/>
+        <Room isLoggedIn={this.state.isLoggedIn}/>
         <p className="App-intro">
           We have no idea what we are doing
-          <div>
-            <img src="/dog.jpg" />
-          </div>
         </p>
+        <div>
+          <img src="/dog.jpg" alt="We have no idea what we are doing"/>
+        </div>
       </div>
     );
   }
