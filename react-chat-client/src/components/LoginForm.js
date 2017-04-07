@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 
 class LoginForm extends Component {
 
@@ -6,6 +8,7 @@ class LoginForm extends Component {
     super(props)
     this.onJoinClick = this.onJoinClick.bind(this)
     this.checkName =   this.checkName.bind(this)
+
     this.state =       { valid: false, name: null }
   }
 
@@ -14,7 +17,9 @@ class LoginForm extends Component {
     if (!this.state.valid) {
       return
     }
-    this.props.join(this.state.name)
+
+    this.props.dispatch({type: "JOIN_ROOM", name: this.state.name})
+    //this.props.join(this.state.name)
   }
 
   checkName (event) {
@@ -24,7 +29,8 @@ class LoginForm extends Component {
 
     // if the enter key was pressed and the form is valid, submit it
     if (valid && event.type === 'keydown' && event.keyCode === 13) {
-      this.props.join(name)
+	    this.props.dispatch({type: "JOIN_ROOM", name: name})
+     // this.props.join(name)
     }
   }
 
@@ -40,4 +46,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default connect()(LoginForm);

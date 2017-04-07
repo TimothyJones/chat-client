@@ -9,7 +9,7 @@ class LoginBanner extends Component {
   				</div>
   	} else {
 		return <div>
-				 <LoginForm join={this.props.join}/>
+				 <LoginForm/>
 			   </div>
   	}
   }

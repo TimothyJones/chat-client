@@ -2,31 +2,26 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Room from './components/Room.js'
-import {LoginBanner} from './components/Components'
+import { LoginBanner } from './components/Components'
+import { connect } from 'react-redux'
+
+
 
 class App extends Component {
   
   constructor(props) {
     super(props);
-    this.join = this.join.bind(this)
     this.state = {}
   }
   
-  join(name) {
-    this.setState(prevState => {
-      console.log("Button");
-      return {name: name, isLoggedIn: true} 
-    })
-  }
-
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2><LoginBanner join={this.join} isLoggedIn={this.state.isLoggedIn} name={this.state.name}/></h2>
+          <h2><LoginBanner isLoggedIn={this.props.isLoggedIn} name={this.props.name}/></h2>
         </div>
-        <Room isLoggedIn={this.state.isLoggedIn}/>
+        <Room isLoggedIn={this.props.isLoggedIn}/>
         <p className="App-intro">
           We have no idea what we are doing
         </p>
@@ -38,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(props => props)(App);
