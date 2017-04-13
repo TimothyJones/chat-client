@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -25,8 +23,7 @@ func main() {
 	go hub.Run()
 
 	r := http.NewServeMux()
-	//	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./server/public/")))
-	r.Handle("/", http.FileServer(http.Dir("./react-chat-client/build/"))) //handles static html / css etc. under ./webroot
+	r.Handle("/", http.FileServer(http.Dir("./react-chat-client/build/"))) //handles static html / css etc
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) { serveWs(hub, w, r) })
 	http.Handle("/", r)
 
@@ -35,14 +32,6 @@ func main() {
 		logging.Fatal("Http server fell down with: ", err)
 	}
 
-}
-
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	content, err := ioutil.ReadFile("index.html")
-	if err != nil {
-		fmt.Println("Could not open file.", err)
-	}
-	fmt.Fprintf(w, "%s", content)
 }
 
 func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
