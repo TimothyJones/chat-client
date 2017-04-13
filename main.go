@@ -18,7 +18,7 @@ type logFuncs interface {
 	Printf(format string, v ...interface{})
 }
 
-var logging logFuncs
+var logging logFuncs = log.New(os.Stdout, "[ ] ", log.LstdFlags)
 
 func main() {
 	hub := NewHub()
@@ -29,8 +29,6 @@ func main() {
 	r.Handle("/", http.FileServer(http.Dir("./react-chat-client/build/"))) //handles static html / css etc. under ./webroot
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) { serveWs(hub, w, r) })
 	http.Handle("/", r)
-
-	logging = log.New(os.Stdout, "[ ]", log.LstdFlags)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

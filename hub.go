@@ -1,7 +1,3 @@
-// Copyright 2013 The Gorilla WebSocket Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
 package main
 
 import (
@@ -79,7 +75,8 @@ func (h *Hub) GetUsers() []*User {
 	users := make([]*User, 0)
 	for client := range h.state.clients {
 		if client.user != nil {
-			users = append(users, client.user)
+			var cpy User = *client.user
+			users = append(users, &cpy)
 		}
 	}
 	h.state.mutex.Unlock()
