@@ -241,6 +241,25 @@ func TestImmutableUserList(t *testing.T) {
 
 }
 
+func TestOnlyUsersList(t *testing.T) {
+	hub := NewHub()
+	c1 := NewClient(hub, nil)
+	c2 := NewClient(hub, nil)
+	hub.registerClient(c1)
+	hub.registerClient(c2)
+
+	c1.user = hub.GetNewUser("One")
+
+	U := hub.GetUsers()
+
+	if len(U) != 1 {
+		t.Fatal("Wrong number of users in the user list. Expected 1 but was", len(U))
+	}
+
+	expectEqualButDifferent(U[0], c1.user, t)
+
+}
+
 func expectEqualButDifferent(a, b *User, t *testing.T) {
 	if a == b {
 		t.Fatal("User pointers were identical for ", a)
