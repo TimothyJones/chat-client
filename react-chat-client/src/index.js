@@ -7,8 +7,8 @@ import LoginReducer from './reducers/LoginReducer'
 import { createStore } from 'redux'
 
 ReactDOM.render(
-	<Provider store={createStore(LoginReducer)}>
-	  <App />
+  <Provider store={ createStore(LoginReducer) }>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
